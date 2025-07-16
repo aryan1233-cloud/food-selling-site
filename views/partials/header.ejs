@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Foodies - Homemade Taste</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/a2ef4d25ad.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header style="background: white; border-bottom: 1px solid #eee;">
+  <div style="display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: auto; padding: 0.8rem 1rem;">
+    <a href="/" style="text-decoration: none; color: #ff6b00; font-size: 1.6rem; font-weight: bold;">
+      🍲 Foodies
+    </a>
+
+    <nav style="display: flex; gap: 1.2rem; align-items: center;">
+      <a href="/" style="text-decoration: none; font-size: 1rem; color: #444;">Home</a>
+      <a href="/products/menu" style="text-decoration: none; font-size: 1rem; color: #444;">Menu</a>
+      <a href="/contact" style="text-decoration: none; font-size: 1rem; color: #444;">Contact</a>
+      
+      <% if (user) { %>
+        <a href="/account" style="text-decoration: none; font-size: 1rem; color: #444;">My Account</a>
+        <% if (user.isAdmin) { %>
+          <a href="/admin/add-menu" style="text-decoration: none; font-size: 1rem; color: #444;">Add Menu</a>
+        <% } %>
+        <a href="/auth/logout" style="text-decoration: none; font-size: 1rem; color: #444;">Logout</a>
+      <% } else { %>
+        <a href="/auth/login" style="text-decoration: none; font-size: 1rem; color: #444;">Login</a>
+      <% } %>
+      
+      <a href="/cart" style="text-decoration: none; font-size: 1rem; color: #444;">🛒 Cart (<%= cartCount %>)</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const input = document.getElementById('searchInput');
+    if (!input) return;
+    input.addEventListener('input', e => {
+      const q = e.target.value.toLowerCase();
+      document.querySelectorAll('.card').forEach(card => {
+        card.style.display = card.dataset.name.includes(q) ? 'block' : 'none';
+      });
+    });
+  });
+</script>

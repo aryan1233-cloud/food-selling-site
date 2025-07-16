@@ -1,0 +1,40 @@
+<%- include('partials/header') %>
+
+<div style="display: flex; justify-content: center; padding: 30px 15px; font-family: 'Inter', sans-serif; background-color: #f9f9f9;">
+  <div style="max-width: 800px; width: 100%; background: #fff; padding: 30px 40px; border-radius: 12px; box-shadow: 0 0 15px rgba(0,0,0,0.1);">
+
+    <h2 style="font-size: 32px; margin-bottom: 20px;">📞 Contact Us</h2>
+
+    <p style="font-size: 18px; margin-bottom: 10px;"><strong>Email:</strong> <a href="mailto:info@foodwebsite.com">info@foodwebsite.com</a></p>
+    <p style="font-size: 18px; margin-bottom: 10px;"><strong>Phone:</strong> <a href="tel:+911234567890">+91&nbsp;12345&nbsp;67890</a></p>
+    <p style="font-size: 18px; margin-bottom: 10px;"><strong>Address:</strong> 123, Food Street, Mumbai, India</p>
+    <p style="font-size: 18px; margin-bottom: 30px;"><strong>Support:</strong> <a href="mailto:support@foodwebsite.com">support@foodwebsite.com</a></p>
+
+    <h3 style="font-size: 24px; margin-bottom: 15px;">Send us a message</h3>
+
+    <!-- ✅ REAL FORM: posts to /contact -->
+    <form method="POST" action="/contact" style="margin-top: 1rem;">
+      <input type="text" name="name" placeholder="Your Name" required
+             style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px;">
+      <input type="email" name="email" placeholder="Your Email" required
+             style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px;">
+      <textarea name="message" rows="5" placeholder="Your Message" required
+                style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px;"></textarea>
+      <button type="submit"
+              style="background-color: #ff6b00; color: white; padding: 12px 25px; border: none; border-radius: 6px; font-size: 16px; cursor: pointer;">
+        Send
+      </button>
+    </form>
+
+    <!-- ✅ Flash messages -->
+    <% if (success) { %>
+      <p style="color: green; margin-top: 12px;"><%= success %></p>
+    <% } %>
+    <% if (error) { %>
+      <p style="color: red; margin-top: 12px;"><%= error %></p>
+    <% } %>
+
+  </div>
+</div>
+
+<%- include('partials/footer') %>

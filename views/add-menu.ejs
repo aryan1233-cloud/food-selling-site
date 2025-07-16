@@ -1,0 +1,24 @@
+<%- include('partials/header') %>
+
+<div class="container" style="max-width: 500px;">
+  <h2 style="margin-bottom: 1rem;">➕ Add New Menu Item</h2>
+
+  <% if (error) { %>
+    <div class="error">Error: <%= error %></div>
+  <% } %>
+
+  <form action="/admin/add-menu" method="POST">
+    <label for="name">Food Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="price">Price (₹):</label>
+    <input type="number" id="price" name="price" min="1" required>
+
+    <label for="image">Image File Name (in /public/images):</label>
+    <input type="text" id="image" name="image" placeholder="e.g., burger.jpg" required>
+
+    <button type="submit">Add Item</button>
+  </form>
+</div>
+
+<%- include('partials/footer') %>

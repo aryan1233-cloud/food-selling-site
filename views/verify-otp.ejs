@@ -1,0 +1,99 @@
+<%- include('partials/header') %>
+
+<style>
+  .auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    background-color: #f4f4f4;
+  }
+
+  .auth-box {
+    background: white;
+    padding: 2rem 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .auth-box h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+
+  .auth-box .error {
+    background: #ffe6e6;
+    color: #d60000;
+    padding: 0.75rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .auth-box input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+
+  .auth-box button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #ff6f00;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .auth-box button:hover {
+    background-color: #e65c00;
+  }
+</style>
+
+<div class="auth-container">
+  <div class="auth-box">
+    <h2>🔐 Verify OTP</h2>
+
+    <% if (error) { %>
+      <div class="error"><%= error %></div>
+    <% } %>
+
+    <form action="/auth/verify-otp" method="POST">
+      <input type="text" name="otp" placeholder="Enter the 6-digit OTP" pattern="\d{6}" maxlength="6" required>
+      <button type="submit">Verify OTP</button>
+    </form>
+
+    <form id="resendForm" action="/auth/resend-otp" method="POST" style="margin-top: 1rem;">
+      <button id="resendBtn" type="submit" disabled>Resend OTP (<span id="countdown">30</span>s)</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  let seconds = 30;
+  const countdown = document.getElementById("countdown");
+  const resendBtn = document.getElementById("resendBtn");
+
+  const interval = setInterval(() => {
+    seconds--;
+    countdown.textContent = seconds;
+    if (seconds <= 0) {
+      clearInterval(interval);
+      resendBtn.disabled = false;
+      resendBtn.textContent = "Resend OTP";
+    }
+  }, 1000);
+</script>
+
+<%- include('partials/footer') %>

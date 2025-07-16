@@ -1,0 +1,71 @@
+<%- include('partials/header') %>
+
+<h2 style="text-align:center; margin-top: 2rem;">🛒 Your Cart</h2>
+
+<% if (!cart || cart.length === 0) { %>
+  <div class="container" style="text-align: center; margin-top: 3rem;">
+    <p style="font-size: 1.2rem;">Your cart is empty.</p>
+    <% if (!user) { %>
+      <a href="/auth/login" class="btn" style="margin-top: 1rem;">Login to Start Ordering</a>
+    <% } else { %>
+      <a href="/products/menu" class="btn" style="margin-top: 1rem;">Browse Menu</a>
+    <% } %>
+  </div>
+<% } else { %>
+  <div class="container">
+    <table style="width:100%; border-collapse:collapse; box-shadow:0 2px 8px #ccc; background: #fff;">
+      <thead style="background:#fff3e0;">
+        <tr>
+          <th style="padding:12px;">Photo</th>
+          <th style="padding:12px;">Item</th>
+          <th style="padding:12px;">Qty</th>
+          <th style="padding:12px;">Price</th>
+          <th style="padding:12px;">Subtotal</th>
+          <th style="padding:12px;">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% cart.forEach(entry => { %>
+          <tr style="text-align:center;">
+            <td style="padding:12px;">
+              <img src="/images/<%= entry.image %>" alt="<%= entry.name %>" style="width:140px; height:auto; border-radius:8px;">
+            </td>
+            <td style="padding:12px; font-weight: 500;"><%= entry.name %></td>
+            <td style="padding:12px;">
+              <div style="display: flex; justify-content: center; align-items: center; gap: 0.5rem;">
+                <!-- Decrease button -->
+                <form method="POST" action="/cart/update" style="margin:0;">
+                  <input type="hidden" name="id" value="<%= entry.id %>">
+                  <input type="hidden" name="qty" value="<%= entry.qty - 1 %>">
+                  <button class="btn" style="padding: 4px 10px;">−</button>
+                </form>
+
+                <!-- Current quantity -->
+                <span style="min-width: 30px; display:inline-block;"><%= entry.qty %></span>
+
+                <!-- Increase button -->
+                <form method="POST" action="/cart/update" style="margin:0;">
+                  <input type="hidden" name="id" value="<%= entry.id %>">
+                  <input type="hidden" name="qty" value="<%= entry.qty + 1 %>">
+                  <button class="btn" style="padding: 4px 10px;">+</button>
+                </form>
+              </div>
+            </td>
+            <td style="padding:12px;">₹<%= entry.price %></td>
+            <td style="padding:12px;">₹<%= entry.price * entry.qty %></td>
+            <td style="padding:12px;">
+              <form method="POST" action="/cart/remove">
+                <input type="hidden" name="id" value="<%= entry.id %>">
+                <button class="btn" style="background:#dc3545; padding: 6px 12px;">Remove</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+
+    <h3 style="text-align:center; margin-top:1.5rem;">Grand Total: ₹<%= total %></h3>
+  </div>
+<% } %>
+
+<%- include('partials/footer') %>

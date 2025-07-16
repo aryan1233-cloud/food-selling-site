@@ -1,0 +1,80 @@
+<%- include('partials/header') %>
+
+<style>
+  .auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    background: #f9f9f9;
+  }
+
+  .auth-box {
+    background: white;
+    padding: 2rem 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .auth-box h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+  }
+
+  .auth-box input {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .auth-box button {
+    width: 100%;
+    padding: 10px;
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .auth-box button:hover {
+    background: #e04e4e;
+  }
+
+  .auth-box a {
+    display: block;
+    margin-top: 0.8rem;
+    color: #555;
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+
+  .error {
+    color: red;
+    margin-bottom: 1rem;
+  }
+</style>
+
+<div class="auth-container">
+  <div class="auth-box">
+    <h2>Login with Email</h2>
+    <% if (error) { %><div class="error"><%= error %></div><% } %>
+    <form action="/auth/login" method="POST">
+      <input type="email" name="email" placeholder="Enter your email" required>
+      <input type="password" name="password" placeholder="Enter your password" required>
+      <button type="submit">Login</button>
+    </form>
+    <a href="/auth/forgot">Forgot Password?</a>
+    <a href="/auth/register">New here? Create an Account</a>
+    <a href="/auth/otp-login">Login with OTP</a>
+  </div>
+</div>
+
+<%- include('partials/footer') %>
